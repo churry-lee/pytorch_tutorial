@@ -64,21 +64,18 @@ def draw_bbox(_data):
     plt.show()
 
 def main():
-    train = VOC(root='./data', year='2007', image_set='train')
-    print(train.root, train.year, train.image_set)
+    _data = VOC(root='./data', year='2007', image_set='train')
+    print(_data.root, _data.year, _data.image_set)
 
     pre_processing = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
 
-    _dataset = datasets.VOCDetection(root=train.root, year=train.year, image_set=train.image_set, transform=pre_processing)
-    train_len = int(len(_dataset) * 0.8)
-    valid_len = int(len(_dataset) * 0.2) + 1
-    train_data, valid_data = torch.utils.data.random_split(_dataset, [train_len, valid_len])
+    _dataset = datasets.VOCDetection(root=_data.root, year=_data.year, image_set=_data.image_set, transform=pre_processing)
     
-    #data_show(train_data)
-    draw_bbox(train_data)
+    #data_show(_dataset)
+    draw_bbox(_dataset)
 
 if __name__ == "__main__":
     main()
