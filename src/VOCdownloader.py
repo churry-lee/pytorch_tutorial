@@ -66,7 +66,7 @@ class VOCDownLoader(object):
             base_dir = base_dir.split('/')
             self.voc_root = os.path.join(self.root, base_dir[0])
             if not os.path.exists(self.voc_root):
-                ap = tarfile.open(self.voc_root)
+                ap = tarfile.open(voc_file)
                 ap.extractall(self.root)
                 ap.close()
                 print('Extracting complete')
