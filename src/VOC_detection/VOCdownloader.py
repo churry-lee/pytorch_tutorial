@@ -47,9 +47,10 @@ DATASET_YEAR_DICT = {
 
 
 class VOCDownLoader(object):
-    def __init__(self, root: str, year: str, image_set: str='train'):
+    def __init__(self, root: str, year: str, image_set: str='train', pre_processing: bool=False):
         self.year = year
         self.image_set = image_set
+        self.pre_processing = pre_processing
 
         if image_set == 'train':
             idx = 0
@@ -105,6 +106,8 @@ class VOCDetect(VOCDownLoader):
 
     def __getitem__(self, idx: int):
         image = Image.open(self.images[idx]).convert("RGB")
+        if self.pre_processing:
+            image = pre_processing(image)
         target = self.parse_voc_xml(ET_parse(self.annotations[idx]).getroot())
         return image, target
     
