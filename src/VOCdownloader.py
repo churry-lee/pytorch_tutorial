@@ -58,7 +58,7 @@ class VOCDownLoader(object):
 
         self.root = os.path.join(root, 'VOC', year, image_set)
         if not os.path.isdir(self.root):
-            os.mkdir(self.root)
+            os.makedirs(self.root, exist_ok=True)
         voc_file = os.path.join(self.root, self.filename)
         if not os.path.exists(voc_file):
             download_and_extract_archive(self.url, self.root, filename=self.filename, md5=self.md5)
